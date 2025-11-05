@@ -56,8 +56,10 @@ Antes de começar, certifique-se de ter instalado:
 ```bash
 dotnet new webapi -n ReteSocialis.API
 cd ReteSocialis.API
+```
 
 2 - Instalar os pacotes necessários
+```
 dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
 dotnet add package Microsoft.AspNetCore.SignalR
@@ -66,13 +68,18 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 dotnet add package Microsoft.EntityFrameworkCore.Tools
 dotnet add package Swashbuckle.AspNetCore.Swagger
+```
 
 3 - Aplicar as migrações e atualizar o banco de dados
+```
 dotnet ef migrations add InitialCreate
 dotnet ef database update
+```
 
 4 - Executar a API
+```
 dotnet run
+```
 
 A API será iniciada em:
 👉 http://localhost:5000
@@ -80,15 +87,21 @@ A API será iniciada em:
 🧭 Frontend — Aplicação Angular
 
 1 - Criar o projeto Angular
+```
 npm install -g @angular/cli
 ng new ReteSocialis.Web --routing true --style css
 cd ReteSocialis.Web
+```
 
 2 - Instalar dependências adicionais
+```
 npm install @microsoft/signalr bootstrap
+```
 
 3 - Executar o frontend
+```
 ng serve --open
+```
 
 A aplicação será aberta em:
 👉 http://localhost:4200
@@ -101,65 +114,56 @@ Você pode rodar o backend, o frontend e o SQL Server com Docker Compose.
 
 Crie um arquivo chamado docker-compose.yml na raiz do projeto com o conteúdo abaixo:
 
-version: '3.9'
-
+```
 services:
-  # 🧩 Banco de dados SQL Server
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: rete_sqlserver
+    restart: unless-stopped
     environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Your_password123
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "MinhaSenhaForte123!"
     ports:
       - "1433:1433"
-    networks:
-      - rete_network
     volumes:
-      - sql_data:/var/opt/mssql
+      - rete_sql_data:/var/opt/mssql
 
-  # ⚙️ Backend ASP.NET API
-  backend:
+  rete-api:
     build:
-      context: ./ReteSocialis.API
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ReteSocialis.API/Dockerfile
     container_name: rete_api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=ReteSocialisDB;User Id=sa;Password=Your_password123;TrustServerCertificate=True;
-      - JwtSettings__SecretKey=chave_super_secreta_para_o_jwt
-      - JwtSettings__Issuer=ReteSocialis.API
-      - JwtSettings__Audience=ReteSocialis.Web
     depends_on:
       - sqlserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=ReteSocialisDB;User Id=sa;Password=MinhaSenhaForte123!;TrustServerCertificate=True;
     ports:
-      - "5000:8080"
-    networks:
-      - rete_network
+      - "5000:80"
+    restart: unless-stopped
 
-  # 💻 Frontend Angular
-  frontend:
+  rete-web:
     build:
       context: ./ReteSocialis.Web
       dockerfile: Dockerfile
     container_name: rete_web
+    depends_on:
+      - rete-api
     ports:
       - "4200:80"
-    depends_on:
-      - backend
-    networks:
-      - rete_network
-
-networks:
-  rete_network:
+    environment:
+      - API_URL=http://rete_api:80
+    restart: unless-stopped
 
 volumes:
-  sql_data:
-
+  rete_sql_data:
+```
 
 🚀 Para executar:
+```
 docker-compose build
 docker-compose up -d
+```
 
 Acesse:
 - Frontend → http://localhost:4200
@@ -179,11 +183,13 @@ taskkill /PID 11448 /F
 🔐 Configuração do JWT
 
 No arquivo appsettings.json:
+```
 "JwtSettings": {
   "SecretKey": "sua_chave_super_segura_aqui",
   "Issuer": "ReteSocialis.API",
   "Audience": "ReteSocialis.Web"
 }
+```
 
 🧪 Endpoints principais
 | Método | Rota                                  | Descrição                       |
@@ -197,7 +203,7 @@ No arquivo appsettings.json:
 | `PUT`  | `/api/friends/accept/{invitationKey}` | Aceita convite                  |
 | `Hub`  | `/hubs/feed`, `/hubs/friends`         | Comunicação em tempo real       |
 
-🐞 Observações
+###🐞 Observações
 
 ⚠️ O projeto ainda está em desenvolvimento e possui alguns bugs conhecidos que serão corrigidos em versões futuras.
 
