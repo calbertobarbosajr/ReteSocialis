@@ -203,7 +203,7 @@ No arquivo appsettings.json:
 | `PUT`  | `/api/friends/accept/{invitationKey}` | Aceita convite                  |
 | `Hub`  | `/hubs/feed`, `/hubs/friends`         | Comunicação em tempo real       |
 
-###🐞 Observações
+🐞 Observações
 
 ⚠️ O projeto ainda está em desenvolvimento e possui alguns bugs conhecidos que serão corrigidos em versões futuras.
 
