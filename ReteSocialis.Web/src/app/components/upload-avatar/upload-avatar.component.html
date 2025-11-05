@@ -1,0 +1,12 @@
+<div class="upload-avatar">
+  <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+
+  <div class="cropper-container" *ngIf="previewUrl">
+    <img #imagePreview [src]="previewUrl" class="crop-image" />
+    <button (click)="cropAndUpload()" class="btn-save" [disabled]="uploading">
+      {{ uploading ? 'Enviando...' : 'Recortar & Enviar' }}
+    </button>
+  </div>
+
+  <div class="message" *ngIf="message">{{ message }}</div>
+</div>

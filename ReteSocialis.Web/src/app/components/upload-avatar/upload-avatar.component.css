@@ -1,0 +1,38 @@
+.upload-avatar {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cropper-container {
+  margin-top: 10px;
+  position: relative;
+}
+
+.crop-image {
+  max-width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.btn-save {
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s ease-in-out;
+}
+
+.btn-save:hover {
+  background: #0056b3;
+}
+
+.message {
+  margin-top: 5px;
+  color: #444;
+  font-size: 0.9em;
+}

@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@microsoft/signalr": "^9.0.6",
+    "cropperjs": "^2.1.0",
+    "jwt-decode": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/cropperjs": "^1.1.5"
+  }
+}

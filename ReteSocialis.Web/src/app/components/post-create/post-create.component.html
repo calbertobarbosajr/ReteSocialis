@@ -1,0 +1,14 @@
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <textarea
+      class="form-control mb-3"
+      rows="3"
+      [(ngModel)]="content"
+      placeholder="O que você está pensando?"
+    ></textarea>
+    <button class="btn btn-primary" (click)="submit()" [disabled]="saving">
+      {{ saving ? 'Publicando...' : 'Publicar' }}
+    </button>
+    <div *ngIf="error" class="text-danger mt-2">{{ error }}</div>
+  </div>
+</div>

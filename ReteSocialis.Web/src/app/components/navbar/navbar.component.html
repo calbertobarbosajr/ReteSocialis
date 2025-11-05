@@ -1,0 +1,18 @@
+<nav class="navbar">
+  <div class="nav-left" (click)="goHome()">
+    <span class="logo">🌐 ReteSocialis</span>
+  </div>
+
+  <div class="nav-links">
+    <a routerLink="/home" routerLinkActive="active">🏠 Início</a>
+
+    <ng-container *ngIf="!(isLogged$ | async)">
+      <a routerLink="/login" routerLinkActive="active">🔑 Entrar</a>
+      <a routerLink="/register" routerLinkActive="active">📝 Cadastrar</a>
+    </ng-container>
+
+    <ng-container *ngIf="isLogged$ | async">
+      <button (click)="logout()" class="btn-logout">🚪 Sair</button>
+    </ng-container>
+  </div>
+</nav>

@@ -1,0 +1,22 @@
+.list-group {
+  list-style: none;
+  padding: 0;
+}
+
+.list-group-item {
+  background: #f5f5f5;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 8px;
+}
+
+button {
+  margin-top: 8px;
+}
+
+
+.friends-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+}

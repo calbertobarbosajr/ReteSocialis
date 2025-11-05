@@ -1,0 +1,42 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: rete_sqlserver
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "MinhaSenhaForte123!"
+    ports:
+      - "1433:1433"
+    volumes:
+      - rete_sql_data:/var/opt/mssql
+
+  rete-api:
+    build:
+      context: .
+      dockerfile: ReteSocialis.API/Dockerfile
+    container_name: rete_api
+    depends_on:
+      - sqlserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=ReteSocialisDB;User Id=sa;Password=MinhaSenhaForte123!;TrustServerCertificate=True;
+    ports:
+      - "5000:80"
+    restart: unless-stopped
+
+  rete-web:
+    build:
+      context: ./ReteSocialis.Web
+      dockerfile: Dockerfile
+    container_name: rete_web
+    depends_on:
+      - rete-api
+    ports:
+      - "4200:80"
+    environment:
+      - API_URL=http://rete_api:80
+    restart: unless-stopped
+
+volumes:
+  rete_sql_data:

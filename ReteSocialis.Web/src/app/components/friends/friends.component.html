@@ -1,0 +1,20 @@
+<div class="container mt-4">
+  <h3>👥 Meus Amigos</h3>
+
+  <ul *ngIf="friends.length; else noFriends" class="list-group my-3">
+    <li *ngFor="let f of friends" class="list-group-item">
+      <strong>{{ f.userName }}</strong> <br>
+      <small>{{ f.email }}</small>
+    </li>
+  </ul>
+
+  <ng-template #noFriends>
+    <p>Nenhum amigo ainda 😢</p>
+  </ng-template>
+
+  <hr>
+
+  <h5>Adicionar Amigo</h5>
+  <input [(ngModel)]="newFriendEmail" class="form-control mb-2" placeholder="E-mail do amigo" />
+  <button class="btn btn-primary" (click)="sendRequest()">📤 Enviar Convite</button>
+</div>

@@ -1,0 +1,4 @@
+.auth-root { max-width:360px; margin:50px auto; padding:20px; background:#fff; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.06); }
+.auth-root input { width:100%; margin:8px 0; padding:10px; border-radius:6px; border:1px solid #ddd; }
+.auth-root button { padding:10px 14px; background:#007bff; color:white; border:none; border-radius:6px; cursor:pointer; }
+.error { color:#c0392b; }

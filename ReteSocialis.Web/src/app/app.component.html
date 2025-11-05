@@ -1,0 +1,10 @@
+<nav class="topnav">
+  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">🏠 Início</a>
+  <a routerLink="/chat" routerLinkActive="active">💬 Chat</a>
+  <a routerLink="/amigos" routerLinkActive="active">🤝 Amigos</a>
+  <a routerLink="/editar" routerLinkActive="active">⚙️ Perfil</a>
+</nav>
+
+<main class="container mt-3">
+  <router-outlet></router-outlet>
+</main>
